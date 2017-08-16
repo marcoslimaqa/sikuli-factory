@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 
 import org.sikuli.script.Screen;
 
-public class SikuliFactory {
+public class SikuliFactory { 
 
 	public static void initElements(Screen sikuli, Object page) {
 		Class<?> proxyIn = page.getClass();
