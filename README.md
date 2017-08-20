@@ -101,3 +101,6 @@ In SikuliX, is equivalent to:
 ## Author
 
 * **Marcos Lima** [marcoslimaqa@gmail.com](mailto:marcoslimaqa@gmail.com)
+# sikulifactory
+
+Coming soon...
