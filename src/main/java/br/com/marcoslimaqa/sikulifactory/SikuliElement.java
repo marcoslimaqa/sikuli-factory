@@ -86,16 +86,16 @@ public class SikuliElement {
 		}
 	}
 	
-	public int type(String texto) {
-		return sikuli.type(texto);
+	public int type(String text) {
+		return sikuli.type(text);
 	}
 	
 	public int type(String text, String modifiers) {
 		return sikuli.type(text, modifiers);
 	}
 	
-	public int paste(String texto) {
-		return sikuli.paste(texto);
+	public int paste(String text) {
+		return sikuli.paste(text);
 	}
 	
 	public String getText() {

@@ -9,6 +9,7 @@ import br.com.marcoslimaqa.sikulifactory.SikuliFactory;
 public class MenuPage {
 
 	Screen sikuli;
+	
 	@FindBy(image="scientific.png")
 	private SikuliElement scientific;
 	

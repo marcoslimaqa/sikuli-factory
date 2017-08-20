@@ -9,6 +9,7 @@ import br.com.marcoslimaqa.sikulifactory.SikuliFactory;
 public class ScientificCalculatorPage {
 
 	Screen sikuli;
+	
 	@FindBy(image = "sin-button.png", similarity = 90)
 	private SikuliElement sinButton;
 
