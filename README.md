@@ -4,7 +4,7 @@ A based [PageFactory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory) m
 
 ## A Simple Example
 
-Windows 10 calculator [example](src/test/java/br/com/marcoslimaqa/sikulifactory/samples/win10calculator):
+Automation Test of Windows 10 Calculator, see [example](src/test/java/br/com/marcoslimaqa/sikulifactory/samples/win10calculator):
 
 ```
 package br.com.marcoslimaqa.sikulifactory.samples.win10calculator.pages;
