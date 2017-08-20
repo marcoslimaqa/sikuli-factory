@@ -59,7 +59,7 @@ private SikuliElement menu;
 Or with more images:
 
 ```
-@FindBy(images={"menu-windows10.png","menu-windows8.png"}, similarity = 85, x = 10, y = 25)
+@FindBy(images = {"menu-windows10.png", "menu-windows8.png"}, similarity = 85, x = 10, y = 25)
 private SikuliElement menu;
 ```
 
@@ -93,6 +93,7 @@ sikuli.click(new Pattern("menu.png").similar(0.85F).targetOffset(10,25));
 ```
 
 *The FindBy parameter "images" can be used when a test will run on different operating systems or resolution for example. In this case, SikuliFactory will use the first image that is found. If none of the listed images are found, an exception will be thrown.
+
 *The initElements method instantiates the SikuliElements, without it, your code would throw NullPointerException.
 
 ## Samples
