@@ -77,7 +77,7 @@ Finally, perform some SikuliX action, similar to Selenium:
 menu.click();
 ```
 
-##Explanation
+## Explanation
 
 One of the goals is to make SikuliX more familiar to anyone who already works with Selenium and PageFactory. In addition, reduce the amount of written code and make it cleaner.
 In the example above, using SikuliFactory looks like this:
