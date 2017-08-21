@@ -6,7 +6,7 @@ A based [PageFactory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory) m
 
 Automation Test of Windows 10 Calculator, see [example](src/test/java/com/marcoslimaqa/sikulifactory/samples/win10calculator):
 
-```
+```java
 package com.marcoslimaqa.sikulifactory.samples.win10calculator.pages;
 
 import org.sikuli.script.Screen;
@@ -37,28 +37,28 @@ public class DefaultCalculatorPage {
 
 First declare some SikuliElement fields in your [PageObject](https://github.com/SeleniumHQ/selenium/wiki/PageObjects), using annotation @FindBy with an image parameter, for example:
 
-```
+```java
 @FindBy(image = "menu.png")
 private SikuliElement menu;
 ```
 
 You can also indicate a similarity:
 
-```
+```java
 @FindBy(image = "menu.png", similarity = 85)
 private SikuliElement menu;
 ```
 
 Or coordinates:
 
-```
+```java
 @FindBy(image = "menu.png", similarity = 85, x = 10, y = 25)
 private SikuliElement menu;
 ```
 
 Or with more images:
 
-```
+```java
 @FindBy(images = {"menu-windows10.png", "menu-windows8.png"}, similarity = 85, x = 10, y = 25)
 private SikuliElement menu;
 ```
@@ -66,14 +66,14 @@ private SikuliElement menu;
 ### Step 2
 Initialize the PageObject:
 
-```
+```java
 SikuliFactory.initElements(sikuli, this);
 ```
 
 ### Step 3
 Finally, perform some SikuliX action, similar to Selenium:
 
-```
+```java
 menu.click();
 ```
 
@@ -82,13 +82,13 @@ menu.click();
 One of the goals is to make SikuliX more familiar to anyone who already works with Selenium and PageFactory. In addition, reduce the amount of written code and make it cleaner.
 In the example above, using SikuliFactory looks like this:
 
-```
+```java
 menu.click();
 ```
 
 In SikuliX, is equivalent to:
 
-```
+```java
 sikuli.click(new Pattern("menu.png").similar(0.85F).targetOffset(10,25));
 ```
 
