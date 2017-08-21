@@ -1,4 +1,4 @@
-package br.com.marcoslimaqa.sikulifactory;
+package com.marcoslimaqa.sikulifactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -24,24 +24,19 @@ public class SikuliFactory {
 				String image = null;
 				String[] images = { "" };
 				float similarity = 70;
-				int timeout = (int) sikuli.getAutoWaitTimeout();
 				int x = 0;
 				int y = 0;
-
 				for (Annotation annotation : annotations) {
 					if (annotation instanceof FindBy) {
 						FindBy myAnnotation = (FindBy) annotation;
-
 						image = myAnnotation.image();
 						images = myAnnotation.images();
 						similarity = myAnnotation.similarity();
-						timeout = myAnnotation.timeout();
 						x = myAnnotation.x();
 						y = myAnnotation.y();
 					}
 				}
-
-				SikuliElement sikuliElement = new SikuliElement(sikuli, image, images, similarity, x, y, timeout);
+				SikuliElement sikuliElement = new SikuliElement(sikuli, image, images, similarity, x, y);
 				try {
 					field.set(page, sikuliElement);
 				} catch (IllegalArgumentException e) {

@@ -1,10 +1,10 @@
-package br.com.marcoslimaqa.sikulifactory.samples.win10calculator.pages;
+package com.marcoslimaqa.sikulifactory.samples.win10calculator.pages;
 
 import org.sikuli.script.Screen;
 
-import br.com.marcoslimaqa.sikulifactory.FindBy;
-import br.com.marcoslimaqa.sikulifactory.SikuliElement;
-import br.com.marcoslimaqa.sikulifactory.SikuliFactory;
+import com.marcoslimaqa.sikulifactory.FindBy;
+import com.marcoslimaqa.sikulifactory.SikuliElement;
+import com.marcoslimaqa.sikulifactory.SikuliFactory;
 
 public class DefaultCalculatorPage {
 

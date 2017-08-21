@@ -1,4 +1,4 @@
-package br.com.marcoslimaqa.sikulifactory;
+package com.marcoslimaqa.sikulifactory;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -6,14 +6,16 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Key;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
+import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
 
-public class SikuliElement {
+public class SikuliElement extends Region {
 
 	private Screen sikuli;
 	private String image;
@@ -21,9 +23,8 @@ public class SikuliElement {
 	float similarity0to100;
 	int x;
 	int y;
-	int timeOutInSeconds;
 	
-	public SikuliElement(Screen sikuli, String image, String[] urls, float similarity0to100, int x, int y, int timeOutInSeconds) {
+	public SikuliElement(Screen sikuli, String image, String[] urls, float similarity0to100, int x, int y) {
 		super();
 		this.sikuli = sikuli;
 		this.image = image;
@@ -31,7 +32,6 @@ public class SikuliElement {
 		this.similarity0to100 = similarity0to100;
 		this.x = x;
 		this.y = y;
-		this.timeOutInSeconds = timeOutInSeconds;
 	}
 	
 	public String getImage() {
@@ -45,9 +45,6 @@ public class SikuliElement {
 	}
 	public int getY() {
 		return y;
-	}
-	public int getTimeOutInSeconds() {
-		return timeOutInSeconds;
 	}
 	public void setImage(String image) {
 		this.image = image;
@@ -126,7 +123,7 @@ public class SikuliElement {
 	}
 	
 	private void setImageIfUrlsIsSet() {
-		setImageIfUrlsIsSet(timeOutInSeconds);
+		setImageIfUrlsIsSet((int) sikuli.getAutoWaitTimeout());
 	}
 	
 	private void setImageIfUrlsIsSet(int timeOutInSeconds) {
@@ -147,7 +144,7 @@ public class SikuliElement {
 			     }
 			}
 			if (!imageFound) {
-				throw new RuntimeException("Images not found: " + images);
+				throw new RuntimeException("Images not found: " + Arrays.toString(images));
 			}
 		}
 	}

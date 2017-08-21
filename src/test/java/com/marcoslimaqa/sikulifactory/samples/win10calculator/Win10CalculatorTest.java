@@ -1,4 +1,4 @@
-package br.com.marcoslimaqa.sikulifactory.samples.win10calculator;
+package com.marcoslimaqa.sikulifactory.samples.win10calculator;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -8,9 +8,9 @@ import org.sikuli.script.App;
 import org.sikuli.script.ImagePath;
 import org.sikuli.script.Screen;
 
-import br.com.marcoslimaqa.sikulifactory.samples.win10calculator.pages.MenuPage;
-import br.com.marcoslimaqa.sikulifactory.samples.win10calculator.pages.ScientificCalculatorPage;
-import br.com.marcoslimaqa.sikulifactory.samples.win10calculator.pages.DefaultCalculatorPage;
+import com.marcoslimaqa.sikulifactory.samples.win10calculator.pages.DefaultCalculatorPage;
+import com.marcoslimaqa.sikulifactory.samples.win10calculator.pages.MenuPage;
+import com.marcoslimaqa.sikulifactory.samples.win10calculator.pages.ScientificCalculatorPage;
 
 public class Win10CalculatorTest {
 	

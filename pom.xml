@@ -2,13 +2,35 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>br.com.marcoslimaqa</groupId>
+	<groupId>com.marcoslimaqa</groupId>
 	<artifactId>sikulifactory</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>sikulifactory</name>
-	<url>http://maven.apache.org</url>
+	<description>A based PageFactory model for SikuliX</description>
+	<url>https://github.com/marcoslimaqa/sikuli-factory</url>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Marcos Lima</name>
+			<email>marcoslimaqa@gmail.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/marcoslimaqa/sikuli-factory.git</connection>
+		<developerConnection>scm:git:ssh://github.com:marcoslimaqa/sikuli-factory.git</developerConnection>
+		<url>http://github.com/marcoslimaqa/sikuli-factory/tree/master</url>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

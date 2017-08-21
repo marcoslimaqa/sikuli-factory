@@ -7,12 +7,12 @@ A based [PageFactory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory) m
 Automation Test of Windows 10 Calculator, see [example](src/test/java/br/com/marcoslimaqa/sikulifactory/samples/win10calculator):
 
 ```
-package br.com.marcoslimaqa.sikulifactory.samples.win10calculator.pages;
+package com.marcoslimaqa.sikulifactory.samples.win10calculator.pages;
 
 import org.sikuli.script.Screen;
-import br.com.marcoslimaqa.sikulifactory.FindBy;
-import br.com.marcoslimaqa.sikulifactory.SikuliElement;
-import br.com.marcoslimaqa.sikulifactory.SikuliFactory;
+import com.marcoslimaqa.sikulifactory.FindBy;
+import com.marcoslimaqa.sikulifactory.SikuliElement;
+import com.marcoslimaqa.sikulifactory.SikuliFactory;
 
 public class DefaultCalculatorPage {
 	Screen sikuli;
@@ -35,7 +35,7 @@ public class DefaultCalculatorPage {
 
 ### Step 1
 
-First declare some SikuliElement fields in your [PageObject](https://github.com/SeleniumHQ/selenium/wiki/PageObjects), using the annotation @FindBy with an image parameter, for example:
+First declare some SikuliElement fields in your [PageObject](https://github.com/SeleniumHQ/selenium/wiki/PageObjects), using annotation @FindBy with an image parameter, for example:
 
 ```
 @FindBy(image = "menu.png")
@@ -92,9 +92,9 @@ In SikuliX, is equivalent to:
 sikuli.click(new Pattern("menu.png").similar(0.85F).targetOffset(10,25));
 ```
 
-*The FindBy parameter "images" can be used when a test will run on different operating systems or resolution for example. In this case, SikuliFactory will use the first image that is found. If none of the listed images are found, an exception will be thrown.
+The FindBy parameter "images" can be used when a test will run on different operating systems or resolution for example. In this case, SikuliFactory will use the first image that is found. If none of the listed images are found, an exception will be thrown.
 
-*The initElements method instantiates the SikuliElements, without it, your code would throw NullPointerException.
+The initElements method instantiates the SikuliElements, without it, your code would throw NullPointerException.
 
 ## Samples
 
