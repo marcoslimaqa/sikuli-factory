@@ -1,10 +1,10 @@
-package com.marcoslimaqa.sikulifactory.samples.win10calculator.pages;
+package io.github.marcoslimaqa.sikulifactory.samples.win10calculator.pages;
 
 import org.sikuli.script.Screen;
 
-import com.marcoslimaqa.sikulifactory.FindBy;
-import com.marcoslimaqa.sikulifactory.SikuliElement;
-import com.marcoslimaqa.sikulifactory.SikuliFactory;
+import io.github.marcoslimaqa.sikulifactory.FindBy;
+import io.github.marcoslimaqa.sikulifactory.SikuliElement;
+import io.github.marcoslimaqa.sikulifactory.SikuliFactory;
 
 public class MenuPage {
 

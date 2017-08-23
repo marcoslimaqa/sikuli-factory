@@ -1,4 +1,4 @@
-package com.marcoslimaqa.sikulifactory;
+package io.github.marcoslimaqa.sikulifactory;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;

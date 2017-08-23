@@ -1,4 +1,4 @@
-package com.marcoslimaqa.sikulifactory;
+package io.github.marcoslimaqa.sikulifactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

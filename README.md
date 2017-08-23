@@ -4,15 +4,15 @@ A based [PageFactory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory) m
 
 ## A Simple Example
 
-Automation Test of Windows 10 Calculator, see [example](src/test/java/com/marcoslimaqa/sikulifactory/samples/win10calculator):
+Automation Test of Windows 10 Calculator, see [example](src/test/java/io/github/marcoslimaqa/sikulifactory/samples/win10calculator):
 
 ```java
-package com.marcoslimaqa.sikulifactory.samples.win10calculator.pages;
+package io.github.marcoslimaqa.sikulifactory.samples.win10calculator.pages;
 
 import org.sikuli.script.Screen;
-import com.marcoslimaqa.sikulifactory.FindBy;
-import com.marcoslimaqa.sikulifactory.SikuliElement;
-import com.marcoslimaqa.sikulifactory.SikuliFactory;
+import io.github.marcoslimaqa.sikulifactory.FindBy;
+import io.github.marcoslimaqa.sikulifactory.SikuliElement;
+import io.github.marcoslimaqa.sikulifactory.SikuliFactory;
 
 public class DefaultCalculatorPage {
 	Screen sikuli;
@@ -98,7 +98,7 @@ The initElements method instantiates the SikuliElements, without it, your code w
 
 ## Samples
 
-[win10calculator](src/test/java/com/marcoslimaqa/sikulifactory/samples/win10calculator)
+[win10calculator](src/test/java/io/github/marcoslimaqa/sikulifactory/samples/win10calculator)
 
 ## Author
 
