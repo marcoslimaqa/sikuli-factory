@@ -12,60 +12,96 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.Key;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
-import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
 
-public class SikuliElement extends Region {
+public class SikuliElement {
 
 	private Screen sikuli;
 	private String image;
 	private String[] images;
-	float similarity0to100;
-	int x;
-	int y;
+	private float similarity0to100;
+	private int x;
+	private int y;
+	private Pattern target;
 	
-	public SikuliElement(Screen sikuli, String image, String[] urls, float similarity0to100, int x, int y) {
+	public SikuliElement(Screen sikuli, String image, String[] images, float similarity0to100, int x, int y) {
 		super();
 		this.sikuli = sikuli;
 		this.image = image;
-		this.images = urls;
+		this.images = images;
 		this.similarity0to100 = similarity0to100;
 		this.x = x;
 		this.y = y;
+		this.target = new Pattern(image).similar(similarity0to100/100).targetOffset(x,y);
 	}
 	
 	public String getImage() {
 		return image;
 	}
+	
+	public String[] getImages() {
+		return images;
+	}
+
 	public float getSimilarity0to100() {
 		return similarity0to100;
 	}
+
 	public int getX() {
 		return x;
 	}
+
 	public int getY() {
 		return y;
 	}
+
 	public void setImage(String image) {
 		this.image = image;
 	}
 	
 	public int click() {
-		setImageIfUrlsIsSet();
+		setImageIfUrlsIsSet(this);
 		try {
-			if (x==0 && y==0) {
-				return sikuli.click(new Pattern(image).similar(similarity0to100/100));
-			} else {
-				return sikuli.click(new Pattern(image).similar(similarity0to100/100).targetOffset(x,y));
-			}
+			return sikuli.click(target);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
+	public int doubleClick() {
+		setImageIfUrlsIsSet(this);
+		try {
+			return sikuli.doubleClick(target);
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public int dragDrop(SikuliElement sikuliElement) {
+		setImageIfUrlsIsSet(this);
+		setImageIfUrlsIsSet(sikuliElement);
+		Pattern toDrop = new Pattern(sikuliElement.getImage()).similar(sikuliElement.getSimilarity0to100()/100).targetOffset(sikuliElement.getX(),sikuliElement.getY());
+		try {
+			return sikuli.dragDrop(target, toDrop);
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public int click(SikuliElement sikuliElement) {
+		setImageIfUrlsIsSet(this);
+		setImageIfUrlsIsSet(sikuliElement);
+		Pattern toClick = new Pattern(sikuliElement.getImage()).similar(sikuliElement.getSimilarity0to100()/100).targetOffset(sikuliElement.getX(),sikuliElement.getY());
+		try {
+			return sikuli.find(target).click(toClick);
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public boolean exists(int timeOutInSeconds) {
 		try {
-			setImageIfUrlsIsSet(timeOutInSeconds);
+			setImageIfUrlsIsSet(this, timeOutInSeconds);
 		} catch (Exception e) {
 			return false;
 		}
@@ -75,7 +111,7 @@ public class SikuliElement extends Region {
 	}
 	
 	public Match wait(int timeOutInSeconds){
-		setImageIfUrlsIsSet(timeOutInSeconds);
+		setImageIfUrlsIsSet(this, timeOutInSeconds);
 		try {
 			return sikuli.wait(new Pattern(image).similar(similarity0to100/100), timeOutInSeconds);
 		} catch (FindFailed e) {
@@ -122,19 +158,19 @@ public class SikuliElement extends Region {
 		return clipboardText;
 	}
 	
-	private void setImageIfUrlsIsSet() {
-		setImageIfUrlsIsSet((int) sikuli.getAutoWaitTimeout());
+	private void setImageIfUrlsIsSet(SikuliElement sikuliElement) {
+		setImageIfUrlsIsSet(sikuliElement, (int) sikuli.getAutoWaitTimeout());
 	}
 	
-	private void setImageIfUrlsIsSet(int timeOutInSeconds) {
-		if (images.length > 1) {
+	private void setImageIfUrlsIsSet(SikuliElement sikuliElement, int timeOutInSeconds) {
+		if (sikuliElement.getImages().length > 1) {
 			boolean imageFound = false;
 			long timeoutExpiredMs = System.currentTimeMillis() + timeOutInSeconds * 1000;
 			while (!imageFound) {
-				for (int i = 0; i < images.length; i++) {
-					imageFound = sikuli.exists(new Pattern(images[i]).similar(similarity0to100/100), 0) != null;
+				for (int i = 0; i < sikuliElement.getImages().length; i++) {
+					imageFound = sikuli.exists(new Pattern(sikuliElement.getImages()[i]).similar(sikuliElement.getSimilarity0to100()/100), 0) != null;
 					if (imageFound) {
-						setImage(images[i]);
+						setImage(sikuliElement.getImages()[i]);
 						return;
 					}
 				}
@@ -144,7 +180,7 @@ public class SikuliElement extends Region {
 			     }
 			}
 			if (!imageFound) {
-				throw new RuntimeException("Images not found: " + Arrays.toString(images));
+				throw new RuntimeException("Images not found: " + Arrays.toString(sikuliElement.getImages()));
 			}
 		}
 	}
