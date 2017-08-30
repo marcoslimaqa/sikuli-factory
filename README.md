@@ -2,6 +2,22 @@
 
 A based [PageFactory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory) model for [SikuliX](http://sikulix.com/).
 
+## Download and Install
+
+Download the following JAR and add them to your classpath:
+* [sikulifactory.jar](http://search.maven.org/#search%7Cga%7C1%7Csikulifactory)
+
+### Maven Users
+Add the following dependency to your pom.xml:
+
+```xml
+<dependency>
+    <groupId>io.github.marcoslimaqa</groupId>
+    <artifactId>sikulifactory</artifactId>
+    <version>1.0</version>
+</dependency>
+```
+
 ## A Simple Example
 
 Automation Test of Windows 10 Calculator, see [example](src/test/java/io/github/marcoslimaqa/sikulifactory/samples/win10calculator):
