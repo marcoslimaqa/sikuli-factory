@@ -7,6 +7,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Key;
@@ -22,7 +23,6 @@ public class SikuliElement {
 	private float similarity0to100;
 	private int x;
 	private int y;
-	private Pattern target;
 	
 	public SikuliElement(Screen sikuli, String image, String[] images, float similarity0to100, int x, int y) {
 		super();
@@ -32,7 +32,6 @@ public class SikuliElement {
 		this.similarity0to100 = similarity0to100;
 		this.x = x;
 		this.y = y;
-		this.target = new Pattern(image).similar(similarity0to100/100).targetOffset(x,y);
 	}
 	
 	public String getImage() {
@@ -60,82 +59,235 @@ public class SikuliElement {
 	}
 	
 	public int click() {
-		setImageIfUrlsIsSet(this);
 		try {
-			return sikuli.click(target);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	public int doubleClick() {
-		setImageIfUrlsIsSet(this);
-		try {
-			return sikuli.doubleClick(target);
+			return sikuli.click(createPattern(this));
 		} catch (FindFailed e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	public int dragDrop(SikuliElement sikuliElement) {
-		setImageIfUrlsIsSet(this);
-		setImageIfUrlsIsSet(sikuliElement);
-		Pattern toDrop = new Pattern(sikuliElement.getImage()).similar(sikuliElement.getSimilarity0to100()/100).targetOffset(sikuliElement.getX(),sikuliElement.getY());
+	public int click(Integer modifiers) {
 		try {
-			return sikuli.dragDrop(target, toDrop);
+			return sikuli.click(createPattern(this), modifiers);
 		} catch (FindFailed e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
 	public int click(SikuliElement sikuliElement) {
-		setImageIfUrlsIsSet(this);
-		setImageIfUrlsIsSet(sikuliElement);
-		Pattern toClick = new Pattern(sikuliElement.getImage()).similar(sikuliElement.getSimilarity0to100()/100).targetOffset(sikuliElement.getX(),sikuliElement.getY());
 		try {
-			return sikuli.find(target).click(toClick);
+			return sikuli.find(createPattern(this)).click(createPattern(sikuliElement));
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public int doubleClick() {
+		try {
+			return sikuli.doubleClick(createPattern(this));
 		} catch (FindFailed e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	public boolean exists(int timeOutInSeconds) {
+	public int doubleClick(Integer modifiers) {
 		try {
-			setImageIfUrlsIsSet(this, timeOutInSeconds);
+			return sikuli.doubleClick(createPattern(this), modifiers);
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public int rightClick() {
+		try {
+			return sikuli.rightClick(createPattern(this));
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public int dragDrop(SikuliElement sikuliElement) {
+		try {
+			return sikuli.dragDrop(createPattern(this), createPattern(sikuliElement));
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public int drag() {
+		try {
+			return sikuli.drag(createPattern(this));
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public int dropAt() {
+		try {
+			return sikuli.dropAt(createPattern(this));
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public int mouseMove() {
+		try {
+			return sikuli.mouseMove(createPattern(this));
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public int wheel(int direction, int steps) {
+		try {
+			return sikuli.wheel(createPattern(this), direction, steps);
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public int wheel(int direction, int steps, int stepDelay) {
+		try {
+			return sikuli.wheel(createPattern(this), direction, steps , stepDelay);
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public int hover() {
+		try {
+			return sikuli.hover(createPattern(this));
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public boolean exists(){
+		return exists((int) sikuli.getAutoWaitTimeout());
+	}
+	
+	public boolean exists(int timeoutInSeconds) {
+		Pattern pattern;
+		try {
+			pattern = createPattern(this, timeoutInSeconds);
 		} catch (Exception e) {
 			return false;
 		}
-		Match imageMatch = sikuli.exists(new Pattern(image).similar(similarity0to100/100), timeOutInSeconds);
+		Match imageMatch = sikuli.exists(pattern, timeoutInSeconds);
         boolean imageExists = imageMatch != null;
         return imageExists;
 	}
 	
-	public Match wait(int timeOutInSeconds){
-		setImageIfUrlsIsSet(this, timeOutInSeconds);
+	public Match waitit(){
+		return wait((int) sikuli.getAutoWaitTimeout());
+	}
+	
+	public Match wait(int timeoutInSeconds){
 		try {
-			return sikuli.wait(new Pattern(image).similar(similarity0to100/100), timeOutInSeconds);
+			return sikuli.wait(createPattern(this, timeoutInSeconds), timeoutInSeconds);
 		} catch (FindFailed e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
+	public boolean waitVanish(){
+		return waitVanish((int) sikuli.getAutoWaitTimeout());
+	}
+	
+	public boolean waitVanish(int timeoutInSeconds){
+		Pattern pattern;
+		try {
+			pattern = createPattern(this, 0);
+		} catch (Exception e) {
+			return true;
+		}
+		boolean imageVanished = sikuli.waitVanish(pattern, timeoutInSeconds);
+		if (imageVanished) {
+			return true;
+		}
+		throw new RuntimeException(new FindFailed("Image \"" + image + "\" not vanished after " + timeoutInSeconds + " seconds."));
+	}
+	
+	public Match find() {
+		try {
+			return sikuli.find(createPattern(this));
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public Match findBest() {
+		return sikuli.findBest(createPattern(this));
+	}
+	
+	public Iterator<Match> findAll() {
+		try {
+			return sikuli.findAll(createPattern(this));
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public Match[] findAllByRow() {
+		return sikuli.findAllByRow(createPattern(this));
+	}
+	
+	public String onAppear() {
+		return sikuli.onAppear(createPattern(this));
+	}
+	
+	public String onAppear(Object observer) {
+		return sikuli.onAppear(createPattern(this), observer);
+	}
+	
+	public String onVanish(Object observer) {
+		return sikuli.onVanish(createPattern(this), observer);
+	}
+	
+	public String onVanish() {
+		return sikuli.onVanish(createPattern(this));
+	}
+	
+	public Match[] findAllByColumn() {
+		return sikuli.findAllByColumn(createPattern(this));
+	}
+	
 	public int type(String text) {
-		return sikuli.type(text);
+		try {
+			return sikuli.type(createPattern(this), text);
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public int type(String text, String modifiers) {
-		return sikuli.type(text, modifiers);
+		try {
+			return sikuli.type(createPattern(this), text, modifiers);
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public int type(String text, int modifiers) {
+		try {
+			return sikuli.type(createPattern(this), text, modifiers);
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public int paste(String text) {
-		return sikuli.paste(text);
+		try {
+			return sikuli.paste(createPattern(this), text);
+		} catch (FindFailed e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public String getText() {
 		clearClipboard();
-		click();
 		type("a", Key.CTRL);
-		type("c", Key.CTRL);
+		sikuli.type("c", Key.CTRL);
 		return getClipboard();
 	}
 	
@@ -162,15 +314,15 @@ public class SikuliElement {
 		setImageIfUrlsIsSet(sikuliElement, (int) sikuli.getAutoWaitTimeout());
 	}
 	
-	private void setImageIfUrlsIsSet(SikuliElement sikuliElement, int timeOutInSeconds) {
+	private void setImageIfUrlsIsSet(SikuliElement sikuliElement, int timeoutInSeconds) {
 		if (sikuliElement.getImages().length > 1) {
 			boolean imageFound = false;
-			long timeoutExpiredMs = System.currentTimeMillis() + timeOutInSeconds * 1000;
+			long timeoutExpiredMs = System.currentTimeMillis() + timeoutInSeconds * 1000;
 			while (!imageFound) {
 				for (int i = 0; i < sikuliElement.getImages().length; i++) {
 					imageFound = sikuli.exists(new Pattern(sikuliElement.getImages()[i]).similar(sikuliElement.getSimilarity0to100()/100), 0) != null;
 					if (imageFound) {
-						setImage(sikuliElement.getImages()[i]);
+						sikuliElement.setImage(sikuliElement.getImages()[i]);
 						return;
 					}
 				}
@@ -180,9 +332,19 @@ public class SikuliElement {
 			     }
 			}
 			if (!imageFound) {
-				throw new RuntimeException("Images not found: " + Arrays.toString(sikuliElement.getImages()));
+				throw new RuntimeException(new FindFailed("Images not found: " + Arrays.toString(sikuliElement.getImages())));
 			}
 		}
+	}
+	
+	private Pattern createPattern(SikuliElement sikuliElement) {
+		setImageIfUrlsIsSet(sikuliElement);
+		return new Pattern(sikuliElement.getImage()).similar(sikuliElement.getSimilarity0to100()/100).targetOffset(sikuliElement.getX(),sikuliElement.getY());
+	}
+	
+	private Pattern createPattern(SikuliElement sikuliElement, int timeoutInSeconds) {
+		setImageIfUrlsIsSet(sikuliElement, timeoutInSeconds);
+		return new Pattern(sikuliElement.getImage()).similar(sikuliElement.getSimilarity0to100()/100).targetOffset(sikuliElement.getX(),sikuliElement.getY());
 	}
     
 }
