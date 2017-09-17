@@ -79,6 +79,25 @@ Or with more images:
 private SikuliElement menu;
 ```
 
+If you prefer, you can use annotation @FindByImage or @FindByImages instead of @FindBy. See the examples below:
+
+```java
+@FindByImage("menu.png")
+private SikuliElement menu;
+```
+
+```java
+@FindByImages({"menu-windows10.png","menu-windows8.png"})
+private SikuliElement menu;
+```
+
+However, if you need to indicate similarity or coordinates, you need to add the value parameter to the image:
+
+```java
+@FindByImage(value = "menu-windows10.png", similarity = 85, x = 10, y = 25)
+private SikuliElement menu;
+```
+
 ### Step 2
 Initialize the PageObject:
 
