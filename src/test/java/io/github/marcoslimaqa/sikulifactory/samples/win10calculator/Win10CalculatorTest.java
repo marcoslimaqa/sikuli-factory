@@ -35,6 +35,7 @@ public class Win10CalculatorTest {
 	
 	@After
 	public void after() {
+		sikuliApp = App.focus("Calc");
 		sikuliApp.close();
 	}
 	

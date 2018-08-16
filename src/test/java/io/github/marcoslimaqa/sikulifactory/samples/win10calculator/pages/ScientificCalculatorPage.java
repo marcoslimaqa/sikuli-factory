@@ -10,10 +10,10 @@ public class ScientificCalculatorPage {
 
 	Screen sikuli;
 	
-	@FindBy(image = "sin-button.png", similarity = 90)
+	@FindBy(images={"sin-button.png", "sin-button-large.png"}, similarity = 90)
 	private SikuliElement sinButton;
 
-	@FindBy(image = "cos-button.png", similarity = 90)
+	@FindBy(images={"cos-button.png", "cos-button-large.png"}, similarity = 90)
 	private SikuliElement cosButton;
 
 	public ScientificCalculatorPage(Screen sikuli) {
