@@ -5,7 +5,7 @@ A based [PageFactory](https://github.com/SeleniumHQ/selenium/wiki/PageFactory) m
 ## Download and Install
 
 Download the following JAR and add them to your classpath:
-* [sikulifactory.jar](http://search.maven.org/#search%7Cga%7C1%7Csikulifactory)
+* [sikulifactory.jar](https://search.maven.org/remotecontent?filepath=io/github/marcoslimaqa/sikulifactory/1.1.1/sikulifactory-1.1.1.jar)
 
 ### Maven Users
 Add the following dependency to your pom.xml:
@@ -14,7 +14,7 @@ Add the following dependency to your pom.xml:
 <dependency>
     <groupId>io.github.marcoslimaqa</groupId>
     <artifactId>sikulifactory</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 </dependency>
 ```
 
@@ -134,6 +134,7 @@ The initElements method instantiates the SikuliElements, without it, your code w
 ## Samples
 
 [win10calculator](src/test/java/io/github/marcoslimaqa/sikulifactory/samples/win10calculator)
+[sampleapp](src/test/java/io/github/marcoslimaqa/sikulifactory/samples/sampleapp)
 
 ## Author
 
