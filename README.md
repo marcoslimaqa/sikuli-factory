@@ -134,6 +134,7 @@ The initElements method instantiates the SikuliElements, without it, your code w
 ## Samples
 
 [win10calculator](src/test/java/io/github/marcoslimaqa/sikulifactory/samples/win10calculator)
+
 [sampleapp](src/test/java/io/github/marcoslimaqa/sikulifactory/samples/sampleapp)
 
 ## Author
